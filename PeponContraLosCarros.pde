@@ -8,10 +8,10 @@ void setup(){
   miCarroList= new ArrayList<Carro>();
 
   for (int i = 0; i < 5; i++) {
-    float randomy = random(0, 450);
-    Carro micarro = new Carro(250,randomy,50,10);
-    Carro tucarro = new Carro(-250,randomy,50,10);
-    Carro elcamion = new Carro(0,randomy,100,10);
+    float randomy = random(60, 440);
+    Carro micarro = new Carro(-250,randomy,50,10);
+    Carro tucarro = new Carro(-50,randomy,50,10);
+    Carro elcamion = new Carro(-400,randomy,100,10);
     miCarroList.add(micarro);
     miCarroList.add(tucarro);
     miCarroList.add(elcamion);
@@ -20,12 +20,10 @@ void setup(){
 
 void draw(){
   background(255);
-  line(0, 60, width, 60);
-  line(0, 440, width, 440);
-  fill(123);
+  pintarLineas();
 
   if (saMataoPepon()){
-      mipepon.muerto();
+    mipepon.muerto();
   } else {
     sacarElCarro();
     mipepon.vivo();
@@ -51,6 +49,12 @@ boolean saMataoPepon() {
     }
   }
   return false;
+}
+
+void pintarLineas(){
+  fill(0, 0, 0);
+  line(0, 60, width, 60);
+  line(0, 440, width, 440);
 }
 
 
