@@ -3,6 +3,8 @@ class Carro {
   float x;
   float largo;
   float alto;
+  float velocidad = random(10);
+
   
   Carro(float xcarro, float ycarro, float largoCarro, float altoCarro){
     x=xcarro;
@@ -12,15 +14,13 @@ class Carro {
   }
   void pintar(){
     rect(x, y, largo, alto);
+    if (x>500){
+      x = (0 - largo);
+      velocidad = random(10);
+    }
   }
   
   void irAcelerao(){
-    float randomv = random(2);
-    x=x+randomv;
-  }
-    void muAcelerao(){
-    float randomv = random(5);
-    x=x+randomv;
-  }
-
+    x=x+velocidad;
+  }  
 }

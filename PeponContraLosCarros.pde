@@ -1,8 +1,4 @@
-int pepeX=250;
-int pepeY=500;
-int cocheX=0;
 ArrayList<Carro> miCarroList;
-
 
 Pepon mipepon = new Pepon(250, 500, 25);
 //Carro micarro = new Carro(0,50);
@@ -10,52 +6,52 @@ Pepon mipepon = new Pepon(250, 500, 25);
 void setup(){
   size(500,500);
   miCarroList= new ArrayList<Carro>();
-       for (int i = 0; i < 5; i++) {
-        //float randomx = random(0, 450);
-        float randomy = random(0, 450);
-        Carro micarro = new Carro(250,randomy,50,10);
-        Carro tucarro = new Carro(-250,randomy,50,10);
-        Carro elcamion = new Carro(0,randomy,100,10);
-        miCarroList.add(micarro);
-        miCarroList.add(tucarro);
-        miCarroList.add(elcamion);
+
+  for (int i = 0; i < 5; i++) {
+    float randomy = random(0, 450);
+    Carro micarro = new Carro(250,randomy,50,10);
+    Carro tucarro = new Carro(-250,randomy,50,10);
+    Carro elcamion = new Carro(0,randomy,100,10);
+    miCarroList.add(micarro);
+    miCarroList.add(tucarro);
+    miCarroList.add(elcamion);
   } 
 }
 
 void draw(){
   background(255);
-    boolean estaParranda = true; //<>//
-    for (int i = 0; i < 5; i++) {
-     Carro auxCar = miCarroList.get(i);
-     if (isColliding(auxCar.x, auxCar.y, auxCar.largo, auxCar.alto, mipepon.x, mipepon.y, mipepon.radio)){
-       estaParranda = false; //<>//
-     }
-    }
-    
-    if (!estaParranda){ //<>//
+  line(0, 60, width, 60);
+  line(0, 440, width, 440);
+  fill(123);
+
+  if (saMataoPepon()){
       mipepon.muerto();
-    }
-    else{
-      sacarElCarro(); //<>//
-      mipepon.vivo();
-      mipepon.mover();
-    }
-}
-
-
- void sacarElCarro(){
-    for (int i = 0; i < miCarroList.size(); i++) {
-    Carro micarro = miCarroList.get(i);
-    micarro.pintar();
-    micarro.irAcelerao();
-    if (micarro.x>250){
-      Carro tucarro = miCarroList.get(i);
-      tucarro.pintar();
-      tucarro.muAcelerao();
-    }
+  } else {
+    sacarElCarro();
+    mipepon.vivo();
+    mipepon.mover();
   }
 }
 
+
+void sacarElCarro(){
+  for (int i = 0; i < miCarroList.size(); i++) {
+    Carro micarro = miCarroList.get(i);
+    micarro.pintar();
+    micarro.irAcelerao();
+  }
+}
+
+boolean saMataoPepon() {
+  for (int i = 0; i < miCarroList.size(); i++) {
+    Carro auxCar = miCarroList.get(i);
+
+    if (isColliding(auxCar.x, auxCar.y, auxCar.largo, auxCar.alto, mipepon.x, mipepon.y, mipepon.radio)){
+      return true;
+    }
+  }
+  return false;
+}
 
 
 boolean isColliding(float xCarro, float yCarro, float largoCarro, float altoCarro, float xPepon, float yPepon, float radio) {
